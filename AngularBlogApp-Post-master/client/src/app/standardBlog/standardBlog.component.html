@@ -1,0 +1,188 @@
+<head>
+      <!-- Java Script
+        ================================================== -->
+        <script src="./assets/js/jquery-3.2.1.min.js"></script>
+        <script src="./assets/js/plugins.js"></script>
+        <script src="./assets/js/main.js"></script>
+</head>
+
+
+<div id="top">
+        <!-- pageheader
+           ================================================== -->
+           <div class="s-pageheader">
+       
+                   <header class="header">
+                       <div class="header__content row">
+           
+                           <div class="header__logo">
+                               <a class="logo" href="index.html">
+                                   <img src="./assets/images/logo.svg" alt="Homepage">
+                               </a>
+                           </div> <!-- end header__logo -->
+           
+                           <ul class="header__social">
+                               <li>
+                                   <a href="#0"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                               </li>
+                               <li>
+                                   <a href="#0"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                               </li>
+                               <li>
+                                   <a href="#0"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                               </li>
+                               <li>
+                                   <a href="#0"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                               </li>
+                           </ul> <!-- end header__social -->
+           
+                           <a class="header__search-trigger" href="#0"></a>
+           
+                           <div class="header__search">
+           
+                               <form role="search" method="get" class="header__search-form" action="#">
+                                   <label>
+                                       <span class="hide-content">Search for:</span>
+                                       <input type="search" class="search-field" placeholder="Type Keywords" value="" name="s" title="Search for:" autocomplete="off">
+                                   </label>
+                                   <input type="submit" class="search-submit" value="Search">
+                               </form>
+                   
+                               <a href="#0" title="Close Search" class="header__overlay-close">Close</a>
+           
+                           </div>  <!-- end header__search -->
+           
+           
+                           <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+           
+                         
+           
+                       </div> <!-- header-content -->
+                   </header> <!-- header -->
+           
+               </div> <!-- end s-pageheader -->
+           
+           
+               <!-- s-content
+               ================================================== -->
+               <section class="s-content s-content--narrow s-content--no-padding-bottom">
+           
+                   <article class="row format-standard">
+           
+                       <div class="s-content__header col-full">
+                           <h1 class="s-content__header-title">
+                             {{post?post.title:''}}
+                           </h1>
+                           <ul class="s-content__header-meta">
+                               <li class="date">{{post?post.date:''}}</li> 
+                               <li class="cat">
+                                   In
+                                   <a href="#0">{{post?post.asscField:''}}</a>
+                                  
+                               </li>
+                           </ul>
+                       </div> <!-- end s-content__header -->
+               
+                       <div class="s-content__media col-full">
+                           <div class="s-content__post-thumb">
+                               <img [src]="post?post.leadImage:''" >
+                           </div>
+                       </div> <!-- end s-content__media -->
+           
+                       <div class="col-full s-content__main">
+           
+                           <p class="lead">{{post?post.leadText:''}}</p>
+                           
+                           <p>{{post?post.leadTextCont:''}}</p>
+                           <div *ngFor="let para of paras">
+                               <p>
+                                   <img [src]="para.image">
+                               </p>
+           
+                               <h2>{{para.heading}}</h2>
+           
+                               <p>{{para.content}}</p>
+           
+                               <blockquote><p>{{para.quote}}</p></blockquote>
+           
+                               <p>{{para.contentCont}}</p>
+                           </div>
+                         
+           
+                           
+                               <!-- respond
+                               ================================================== -->
+                             <!--  <div class="respond">
+           
+                                   <h3 class="h2">Add Comment</h3>
+           
+                                   <form name="contactForm" id="contactForm" method="post" action="">
+                                       <fieldset>
+           
+                                           <div class="form-field">
+                                                   <input name="cName" type="text" id="cName" class="full-width" placeholder="Your Name" value="">
+                                           </div>
+           
+                                           <div class="form-field">
+                                                   <input name="cEmail" type="text" id="cEmail" class="full-width" placeholder="Your Email" value="">
+                                           </div>
+           
+                                           <div class="form-field">
+                                                   <input name="cWebsite" type="text" id="cWebsite" class="full-width" placeholder="Website" value="">
+                                           </div>
+           
+                                           <div class="message form-field">
+                                               <textarea name="cMessage" id="cMessage" class="full-width" placeholder="Your Message"></textarea>
+                                           </div>
+           
+                                           <button type="submit" class="submit btn--primary btn--large full-width">Submit</button>
+           
+                                       </fieldset>
+                                   </form>
+           
+                               </div>  -->
+           
+                           </div> <!-- end col-full -->
+           
+                      
+                  
+           </article>
+               </section> <!-- s-content -->
+           
+           
+              
+           
+                   <div class="s-footer__bottom">
+                       <div class="row">
+                           <div class="col-full">
+                               <div class="s-footer__copyright">
+                                   <span>© Copyright Philosophy 2018</span> 
+                                   <span>Site Template by <a href="https://colorlib.com/">Colorlib</a></span>
+                               </div>
+           
+                               <div class="go-top">
+                                   <a class="smoothscroll" title="Back to Top" href="#top"></a>
+                               </div>
+                           </div>
+                       </div>
+                   </div> <!-- end s-footer__bottom -->
+           
+               
+           
+           
+               <!-- preloader
+               ================================================== -->
+              <!-- <div id="preloader">
+                   <div id="loader">
+                       <div class="line-scale">
+                           <div></div>
+                           <div></div>
+                           <div></div>
+                           <div></div>
+                           <div></div>
+                       </div>
+                   </div>
+               </div> -->
+           
+           
+       </div>

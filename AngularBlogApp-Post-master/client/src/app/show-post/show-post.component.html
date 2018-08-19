@@ -1,0 +1,249 @@
+
+<head>
+    <script type="text/javascript" src="./assets/js/plugins.js"></script>
+    <script type="text/javascript" src="./assets/js/main.js"></script>
+</head>
+<div id="body">
+
+    <!-- pageheader
+    ================================================== -->
+    <section class="s-pageheader s-pageheader--home">
+
+        <header class="header">
+            <div class="header__content row">
+
+                <div class="header__logo">
+                    <a class="logo" href="index.html">
+                        <img src="./assets/images/logo.svg" alt="Homepage">
+                    </a>
+                </div> <!-- end header__logo -->
+
+                <ul class="header__social">
+                    <li>
+                        <a href="#0"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    </li>
+                    <li>
+                        <a href="#0"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </li>
+                    <li>
+                        <a href="#0"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </li>
+                    <li>
+                        <a href="#0"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                    </li>
+                </ul> <!-- end header__social -->
+
+                <a class="header__search-trigger" href="#0"></a>
+
+                <div class="header__search">
+
+                    <form role="search" method="get" class="header__search-form" action="#">
+                        <label>
+                            <span class="hide-content">Search for:</span>
+                            <input type="search" class="search-field" placeholder="Type Keywords" value="" name="s" title="Search for:" autocomplete="off">
+                        </label>
+                        <input type="submit" class="search-submit" value="Search">
+                    </form>
+        
+                    <a href="#0" title="Close Search" class="header__overlay-close">Close</a>
+
+                </div>  <!-- end header__search -->
+
+
+                <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+
+                <nav class="header__nav-wrap">
+
+                    <h2 class="header__nav-heading h6">Site Navigation</h2>
+
+                  
+                    <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
+
+                </nav> <!-- end header__nav-wrap -->
+
+            </div> <!-- header-content -->
+        </header> <!-- header -->
+
+
+        <div class="pageheader-content row">
+            <div class="col-full">
+
+                <div class="featured">
+
+                    <div class="featured__column featured__column--big">
+                        <div class="entry" style="background-image:url('./assets/images/thumbs/featured/featured-guitarman.jpg');">
+                            
+                            <div class="entry__content">
+                                <span class="entry__category"><a href="#0">Music</a></span>
+
+                                <h1><a href="#0" title="">What Your Music Preference Says About You and Your Personality.</a></h1>
+
+                                <div class="entry__info">
+                                    <a href="#0" class="entry__profile-pic">
+                                        <img class="avatar" src="./assets/images/avatars/user-03.jpg" alt="">
+                                    </a>
+
+                                    <ul class="entry__meta">
+                                        <li><a href="#0">John Doe</a></li>
+                                        <li>December 29, 2017</li>
+                                    </ul>
+                                </div>
+                            </div> <!-- end entry__content -->
+                            
+                        </div> <!-- end entry -->
+                    </div> <!-- end featured__big -->
+
+                    <div class="featured__column featured__column--small">
+
+                        <div class="entry" style="background-image:url('./assets/images/thumbs/featured/featured-watch.jpg');">
+                            
+                            <div class="entry__content">
+                                <span class="entry__category"><a href="#0">Management</a></span>
+
+                                <h1><a href="#0" title="">The Pomodoro Technique Really Works.</a></h1>
+
+                                <div class="entry__info">
+                                    <a href="#0" class="entry__profile-pic">
+                                        <img class="avatar" src="./assets/images/avatars/user-03.jpg" alt="">
+                                    </a>
+
+                                    <ul class="entry__meta">
+                                        <li><a href="#0">John Doe</a></li>
+                                        <li>December 27, 2017</li>
+                                    </ul>
+                                </div>
+                            </div> <!-- end entry__content -->
+                          
+                        </div> <!-- end entry -->
+
+                        <div class="entry" style="background-image:url('./assets/images/thumbs/featured/featured-beetle.jpg');">
+
+                            <div class="entry__content">
+                                <span class="entry__category"><a href="#0">LifeStyle</a></span>
+
+                                <h1><a href="#0" title="">Throwback To The Good Old Days.</a></h1>
+
+                                <div class="entry__info">
+                                    <a href="#0" class="entry__profile-pic">
+                                        <img class="avatar" src="./assets/images/avatars/user-03.jpg" alt="">
+                                    </a>
+
+                                    <ul class="entry__meta">
+                                        <li><a href="#0">John Doe</a></li>
+                                        <li>December 21, 2017</li>
+                                    </ul>
+                                </div>
+                            </div> <!-- end entry__content -->
+
+                        </div> <!-- end entry -->
+
+                    </div> <!-- end featured__small -->
+                </div> <!-- end featured -->
+
+            </div> <!-- end col-full -->
+        </div> <!-- end pageheader-content row -->
+
+    </section> <!-- end s-pageheader -->
+
+
+    <!-- s-content
+    ================================================== -->
+    <section class="s-content">
+        
+        <div class="row masonry-wrap">
+            <div class="masonry">
+
+                <div class="grid-sizer"></div>
+
+                <article  *ngFor="let post of posts" class="masonry__brick entry format-standard" style="opacity: 1 !important;" data-aos="fade-up">
+                        
+                    <div class="entry__thumb">
+                        <a class="entry__thumb-link">
+                            <img src="./assets/images/thumbs/masonry/lamp-400.jpg" 
+                                    srcset="./assets/images/thumbs/masonry/lamp-400.jpg 1x, ./assets/images/thumbs/masonry/lamp-800.jpg 2x" alt="">
+                        </a>
+                    </div>
+    
+                    <div class="entry__text">
+                        <div class="entry__header">
+                            
+                            <div class="entry__date">
+                                <a>December 15, 2017</a>
+                            </div>
+                            <h1 class="entry__title"><a (click)="onCardClick(post)">{{post.title}}</a></h1>
+                            
+                        </div>
+                        <div class="entry__excerpt">
+                            <p>
+                                {{post.description}}
+                            </p>
+                        </div>
+                        <div class="entry__meta">
+                            <span class="entry__meta-links">
+                                <a href="category.html">Design</a> 
+                                <a href="category.html">Photography</a>
+                            </span>
+                        </div>
+                    </div>
+    
+                </article> <!-- end article -->
+
+                       </div> <!-- end masonry -->
+        </div> <!-- end masonry-wrap -->
+
+        <div class="row">
+            <div class="col-full">
+                <nav class="pgn">
+                    <ul>
+                        <li><a class="pgn__prev" href="#0">Prev</a></li>
+                        <li><a class="pgn__num" href="#0">1</a></li>
+                        <li><span class="pgn__num current">2</span></li>
+                        <li><a class="pgn__num" href="#0">3</a></li>
+                        <li><a class="pgn__num" href="#0">4</a></li>
+                        <li><a class="pgn__num" href="#0">5</a></li>
+                        <li><span class="pgn__num dots">…</span></li>
+                        <li><a class="pgn__num" href="#0">8</a></li>
+                        <li><a class="pgn__next" href="#0">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </section> <!-- s-content -->
+
+
+        <div class="s-footer__bottom">
+            <div class="row">
+                <div class="col-full">
+                    <div class="s-footer__copyright">
+                        <span>© Copyright Philosophy 2018</span> 
+                        <span>Site Template by <a href="https://colorlib.com/">Colorlib</a></span>
+                    </div>
+
+                    <div class="go-top">
+                        <a class="smoothscroll" title="Back to Top" href="#top"></a>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end s-footer__bottom -->
+
+    
+
+
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader">
+            <div class="line-scale">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+
+
+  </div>
