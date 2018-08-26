@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { ShowPostComponent } from './show-post/show-post.component';
 import { AddPostComponent } from './add-post/add-post.component';
 import { StandardBlogComponent } from './standardBlog/standardBlog.component';
+import { CreateStandardBlogComponent } from './standardBlog/createStandardBlog.component';
 import { CommonService } from './service/common.service';
 
 
@@ -20,7 +21,8 @@ import { CommonService } from './service/common.service';
     HomeComponent,
     ShowPostComponent,
     AddPostComponent,
-    StandardBlogComponent
+    StandardBlogComponent,
+    CreateStandardBlogComponent
   ],
   imports: [
     BrowserModule,

@@ -56,7 +56,14 @@ app.post('/api/post/createPost', (req, res) => {
 		if(err) throw err;
 		const post = new Post({
 			title: req.body.title,
-			description: req.body.description
+			description:  req.body.description,
+			date: req.body.date,
+			asscField:  req.body.asscField,
+			leadImage: req.body.leadImage,
+			leadText: req.body.leadText,
+			leadTextCont: req.body.leadTextCont,
+			paragraphs: req.body.paragraphs
+			 
 		})
 		post.save((err, doc) => {
 			if(err) throw err;

@@ -1,0 +1,59 @@
+<div class="row" *ngIf = "_allowAccess" style="background:whitesmoke;width:100% !important;">
+    <div class="col-six tab-full">
+        <h3 class="add-bottom">Create Standard Blog Post</h3>
+        <form>
+            <div>
+                <label>Title</label>
+                <input class="full-width" type="text" [(ngModel)] = "postObj.title" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div>
+                    <label>Description</label>
+                    <input class="full-width" type="text" [(ngModel)] = "postObj.description" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div>
+                <label for="sampleRecipientInput">Blog Type</label>
+                <div class="cl-custom-select">
+                    <select class="full-width" id="sampleRecipientInput" [(ngModel)] = "postObj.asscField" [ngModelOptions]="{standalone: true}">
+                        <option value="Health">Health</option>
+                        <option value="Travel">Travel</option>
+                        <option value="Misc">Misc</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                    <label>Lead Image</label>
+                    <input class="full-width" type="text" [(ngModel)] = "postObj.leadImage" [ngModelOptions]="{standalone: true}">
+            </div>
+            <label for="exampleMessage">Lead Text Content</label>
+            <textarea class="full-width" placeholder="Your Text"  [(ngModel)] = "postObj.leadText" [ngModelOptions]="{standalone: true}" id="exampleMessage"></textarea>
+            <label for="exampleMessage">Lead Text Content Continued</label>
+            <textarea class="full-width" placeholder="Your Text"  [(ngModel)] = "postObj.leadTextCont" [ngModelOptions]="{standalone: true}" id="exampleMessage"></textarea>
+            <input *ngIf = "paragraphs.length == 0" class="btn--primary full-width"  type="button" value="Add More" (click) = "addButtonClick()">
+            <div *ngFor = "let paragraph of paragraphs">
+                    <div>
+                            <label>Image</label>
+                            <input class="full-width" type="text" [(ngModel)] = "paragraph.image" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div>
+                            <label>Heading</label>
+                            <input class="full-width" type="text" [(ngModel)] = "paragraph.heading" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <label for="exampleMessage">Content</label>
+                    <textarea class="full-width" placeholder="Your Text"  [(ngModel)] = "paragraph.content" [ngModelOptions]="{standalone: true}" id="exampleMessage"></textarea>
+                    <div>
+                            <label>Quoted Text</label>
+                            <input class="full-width" type="text" [(ngModel)] = "paragraph.quote" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <label for="exampleMessage">Content Continued</label>
+                    <textarea class="full-width" placeholder="Your Text"  [(ngModel)] = "paragraph.contContent" [ngModelOptions]="{standalone: true}" id="exampleMessage"></textarea>
+                    <input  class="btn--primary full-width"  type="button" value="Remove Paragraph" (click) = "removeButtonClick(paragraph)">
+            </div>
+            <input *ngIf = "paragraphs.length != 0" class="btn--primary full-width"  type="button" value="Add More" (click) = "addButtonClick()">
+            <input class="btn--primary full-width" type="submit" value="Submit" (click) = "createPost()">
+           
+        </form>
+    </div>
+</div>
+<div *ngIf = "!_allowAccess">
+    <h1>Access Denied</h1>
+</div>

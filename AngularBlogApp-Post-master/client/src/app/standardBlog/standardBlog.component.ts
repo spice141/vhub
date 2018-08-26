@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef,OnInit } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { StandardBlogService } from './standardBlog.service';
 import { Post } from '../models/post.model';
 import { Router,ActivatedRoute } from '@angular/router';
