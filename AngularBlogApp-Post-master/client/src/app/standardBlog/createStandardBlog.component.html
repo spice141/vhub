@@ -1,5 +1,5 @@
 <div class="row" *ngIf = "_allowAccess" style="background:whitesmoke;width:100% !important;">
-    <div class="col-six tab-full">
+    <div class="col-twelve tab-full">
         <h3 class="add-bottom">Create Standard Blog Post</h3>
         <form>
             <div>
@@ -24,12 +24,17 @@
                     <label>Lead Image</label>
                     <input class="full-width" type="text" [(ngModel)] = "postObj.leadImage" [ngModelOptions]="{standalone: true}">
             </div>
+            <div class="form-group">
+                <label for="single">Lead Image</label>
+                <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" />                                  
+            </div> 
             <label for="exampleMessage">Lead Text Content</label>
             <textarea class="full-width" placeholder="Your Text"  [(ngModel)] = "postObj.leadText" [ngModelOptions]="{standalone: true}" id="exampleMessage"></textarea>
             <label for="exampleMessage">Lead Text Content Continued</label>
             <textarea class="full-width" placeholder="Your Text"  [(ngModel)] = "postObj.leadTextCont" [ngModelOptions]="{standalone: true}" id="exampleMessage"></textarea>
             <input *ngIf = "paragraphs.length == 0" class="btn--primary full-width"  type="button" value="Add More" (click) = "addButtonClick()">
             <div *ngFor = "let paragraph of paragraphs">
+                    <h2> /* New Paragraph*/ </h2>
                     <div>
                             <label>Image</label>
                             <input class="full-width" type="text" [(ngModel)] = "paragraph.image" [ngModelOptions]="{standalone: true}">
@@ -49,11 +54,83 @@
                     <input  class="btn--primary full-width"  type="button" value="Remove Paragraph" (click) = "removeButtonClick(paragraph)">
             </div>
             <input *ngIf = "paragraphs.length != 0" class="btn--primary full-width"  type="button" value="Add More" (click) = "addButtonClick()">
+            <br>
+            <div class="col-md-12">
+                <h3>List of Files To Be Uploaded</h3>
+                Queue length: {{ uploader?.queue?.length }}
+            
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th width="50%">Name</th>
+                        <th>Size</th>
+                        <th>Progress</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let item of uploader.queue">
+                        <td><strong>{{ item.file.name }}</strong></td>
+                        <td nowrap>{{ item.file.size/1024/1024 | number:'.2' }} MB</td>
+                        <td>
+                            <div class="progress" style="margin-bottom: 0;">
+                                <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok">Success</i></span>
+                            <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle">Cancelled</i></span>
+                            <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove">Error</i></span>
+                        </td>
+                        <td nowrap>
+                            <button type="button" class="btn btn-success btn-xs"
+                                    (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                                <span class="glyphicon glyphicon-upload"></span> Upload
+                            </button>
+                            <button type="button" class="btn btn-warning btn-xs"
+                                    (click)="item.cancel()" [disabled]="!item.isUploading">
+                                <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                            </button>
+                            <button type="button" class="btn btn-danger btn-xs"
+                                    (click)="item.remove()">
+                                <span class="glyphicon glyphicon-trash"></span> Remove
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            
+                <div>
+                    <div>
+                        Queue progress:
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="button" class="btn btn-success btn-s"
+                            (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                        <span class="glyphicon glyphicon-upload"></span> Upload all
+                    </button>
+                    <button type="button" class="btn btn-warning btn-s"
+                            (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+                    </button>
+                    <button type="button" class="btn btn-danger btn-s"
+                            (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                        <span class="glyphicon glyphicon-trash"></span> Remove all
+                    </button>
+                </div>
+            </div>
+            <br><br>
             <input class="btn--primary full-width" type="submit" value="Submit" (click) = "createPost()">
            
         </form>
     </div>
+   
 </div>
+
 <div *ngIf = "!_allowAccess">
     <h1>Access Denied</h1>
 </div>

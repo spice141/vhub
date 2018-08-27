@@ -6,9 +6,13 @@ const url = 'mongodb://localhost/blogDb';
 
 const User = require('./model/user');
 const Post = require('./model/post');
+var multer = require('multer');
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended : false}))
+
+
+
 
 app.post('/api/user/login', (req, res) => {
 	mongoose.connect(url,{ useMongoClient: true }, function(err){
@@ -132,5 +136,42 @@ app.post('/api/post/deletePost', (req, res) => {
         })
     });
 })
+
+/*Upload Functionality*/
+app.use(function(req, res, next) { //allow cross origin requests
+	res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
+	res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	res.header("Access-Control-Allow-Credentials", true);
+	next();
+});
+
+var storage = multer.diskStorage({ //multers disk storage settings
+	destination: function (req, file, cb) {
+		cb(null, './uploads/');
+	},
+	filename: function (req, file, cb) {
+		var datetimestamp = Date.now();
+		//cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
+		cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
+	}
+});
+
+var upload = multer({ //multer settings
+				storage: storage
+			}).single('file');
+
+/** API path that will upload the files */
+app.post('/upload', function(req, res) {
+	upload(req,res,function(err){
+		//console.log(req.file);
+		if(err){
+			 res.json({error_code:1,err_desc:err});
+			 return;
+		}
+		 res.json({error_code:0,err_desc:null});
+	});
+});
+
 
 app.listen(3000, () => console.log('Blog server running on port 3000!'))

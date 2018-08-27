@@ -12,6 +12,7 @@ import { AddPostComponent } from './add-post/add-post.component';
 import { StandardBlogComponent } from './standardBlog/standardBlog.component';
 import { CreateStandardBlogComponent } from './standardBlog/createStandardBlog.component';
 import { CommonService } from './service/common.service';
+import { FileSelectDirective} from 'ng2-file-upload';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { CommonService } from './service/common.service';
     ShowPostComponent,
     AddPostComponent,
     StandardBlogComponent,
-    CreateStandardBlogComponent
+    CreateStandardBlogComponent,
+    FileSelectDirective
   ],
   imports: [
     BrowserModule,

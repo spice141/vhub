@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { StandardBlogService } from './standardBlog.service';
 import { Post } from '../models/post.model';
 import { Router,ActivatedRoute } from '@angular/router';
+import { FileUploader } from 'ng2-file-upload';
  
 @Component({
   selector: 'create-standard-blog',
@@ -16,6 +17,7 @@ export class CreateStandardBlogComponent implements OnInit {
     private _allowAccess:boolean = false;
     private postObj:any;
     private paragraphs = [];
+    public uploader:FileUploader = new FileUploader({url:'http://localhost:3000/upload'});
 
     constructor(private standardBlogService: StandardBlogService, private route: ActivatedRoute){
       this.route.params.subscribe( params => this.routerParams = params);
