@@ -21,11 +21,15 @@ export class StandardBlogService {
 	}
 
 	updatePost(post: Post){
-		return this.http.post('/api/post/updatePost',{
-			id: post._id,
-			title : post.title,
-			description : post.description
-		})
+		return this.http.post('/api/post/updatePost', post)
+	}
+
+	getAllPost(){
+		return this.http.post('/api/post/getAllPost',{})
+	}
+
+	deletePost(id){
+		return this.http.post('/api/post/deletePost',{id : id})
 	}
 
 }

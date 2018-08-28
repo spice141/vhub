@@ -11,6 +11,7 @@ import { ShowPostComponent } from './show-post/show-post.component';
 import { AddPostComponent } from './add-post/add-post.component';
 import { StandardBlogComponent } from './standardBlog/standardBlog.component';
 import { CreateStandardBlogComponent } from './standardBlog/createStandardBlog.component';
+import { ModifyStandardBlogComponent } from './standardBlog/modifyStandardBlog.component';
 import { CommonService } from './service/common.service';
 import { FileSelectDirective} from 'ng2-file-upload';
 
@@ -24,6 +25,7 @@ import { FileSelectDirective} from 'ng2-file-upload';
     AddPostComponent,
     StandardBlogComponent,
     CreateStandardBlogComponent,
+    ModifyStandardBlogComponent,
     FileSelectDirective
   ],
   imports: [

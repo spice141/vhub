@@ -1,7 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { StandardBlogService } from './standardBlog.service';
 import { Post } from '../models/post.model';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router,ActivatedRoute} from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
  
 @Component({
@@ -11,26 +11,43 @@ import { FileUploader } from 'ng2-file-upload';
   providers: [ StandardBlogService ]
 })
 export class CreateStandardBlogComponent implements OnInit {
-    private routerParams;
-    private _userId;
-    private _password;
     private _allowAccess:boolean = false;
     private postObj:any;
     private paragraphs = [];
+    private routerParams:any;
+    private _postId:string;
+    private modifyMode:boolean = false;
+
     public uploader:FileUploader = new FileUploader({url:'http://localhost:3000/upload'});
 
-    constructor(private standardBlogService: StandardBlogService, private route: ActivatedRoute){
-      this.route.params.subscribe( params => this.routerParams = params);
-    }
-
-    ngOnInit(){
-      this._userId = this.routerParams._userId;
-      this._password=this.routerParams._password;
-        if(this._userId == "venki" && this._password == "1234"){
+    constructor(private standardBlogService: StandardBlogService, private route: ActivatedRoute, private router: Router){
+        if(!localStorage.getItem('loggedInUser')){
+            alert("Access is denied");
+            this._allowAccess = false;
+            this.router.navigate(['/']);
+        }
+        else {
           this._allowAccess = true;
-          this.initStdPostObj();
+          this.route.params.subscribe( params => this.routerParams = params);
         }
     }
+
+  ngOnInit(){
+      this._postId = this.routerParams._id;
+      if(!this._postId){
+        this.initStdPostObj();
+      }
+      else{
+          this.modifyMode = true;
+          this.standardBlogService.getPost(this._postId).subscribe(result => {
+            this.postObj = result['data'];
+            if(this.postObj.paragraphs){
+              this.paragraphs = this.postObj.paragraphs;
+            }else this.paragraphs = [];
+          });
+      }
+    
+  }
 
 private initStdPostObj(){
     this.postObj = {
@@ -77,8 +94,19 @@ private createPost(){
   this.postObj.paragraphs = this.paragraphs;
   this.standardBlogService.addPost(this.postObj).subscribe(result => {
     console.log('result is ', result);
-});
+  });
+}
 
+
+private savePost(){
+  this.standardBlogService.updatePost(this.postObj).subscribe(result => {
+    alert(result.toString());
+  });
+}
+
+private logout(){
+  localStorage.removeItem('loggedInUser');
+  this.router.navigate(['/']);
 }
 
 }

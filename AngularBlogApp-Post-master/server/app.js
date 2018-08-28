@@ -111,8 +111,20 @@ app.post('/api/post/updatePost', (req, res) => {
     mongoose.connect(url, { useMongoClient: true }, function(err){
         if(err) throw err;
         Post.update(
-            {_id: req.body.id },
-            { title : req.body.title, description: req.body.description },
+            {_id: req.body._id },
+			{ 
+				_id: req.body._id,
+				title : req.body.title, 
+				description: req.body.description, 
+				date: req.body.date,
+				asscField: req.body.asscField,
+				leadImage: req.body.leadImage,
+				leadText: req.body.leadText,
+				leadTextCont: req.body.leadTextCont,
+				paragraphs: req.body.paragraphs
+
+
+			},
             (err, doc) => {
             if(err) throw err;
             return res.status(200).json({
