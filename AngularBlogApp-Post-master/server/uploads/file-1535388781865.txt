@@ -1,7 +1,0 @@
-1)FORM TEMPLATE
-2)Model binding
-3)Popup for clauses
-4)Popup for perils
-4)Nominated SI
-5)Save and retrive
-6)Validations

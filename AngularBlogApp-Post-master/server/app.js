@@ -2,15 +2,38 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const mongoose = require('mongoose');
-const url = 'mongodb://localhost/blogDb';
+
+/*Configs to be changed  for Prod*/
+const urlDev = 'mongodb://localhost/blogDb';
+const urlProd = 'mongodb://139.59.6.170/blogDb';
+const url = urlProd;
+
+const CORSDev = 'http://localhost:4200';
+const CORSProd = 'http://139.59.6.170';
+const CORS = CORSProd;
+
+var DIR_DEV = '../client/src/assets/images';
+var DIR_PROD = '../iis/client/assets/images';
+var DIR = DIR_PROD;
+
+var WEBSERVER_PORT = 3000;
+/*Configs to be changed  for Prod*/
 
 const User = require('./model/user');
 const Post = require('./model/post');
 var multer = require('multer');
 
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended : false}))
 
+app.use(function(req, res, next) { //allow cross origin requests
+	res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
+	res.header("Access-Control-Allow-Origin", CORS);
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	res.header("Access-Control-Allow-Credentials", true);
+	next();
+});
 
 
 
@@ -150,22 +173,15 @@ app.post('/api/post/deletePost', (req, res) => {
 })
 
 /*Upload Functionality*/
-app.use(function(req, res, next) { //allow cross origin requests
-	res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
-	res.header("Access-Control-Allow-Origin", "http://localhost:4200");
-	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-	res.header("Access-Control-Allow-Credentials", true);
-	next();
-});
 
 var storage = multer.diskStorage({ //multers disk storage settings
 	destination: function (req, file, cb) {
-		cb(null, './uploads/');
+		cb(null, DIR);
 	},
 	filename: function (req, file, cb) {
 		var datetimestamp = Date.now();
 		//cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
-		cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
+		cb(null,file.originalname);
 	}
 });
 
@@ -186,4 +202,5 @@ app.post('/upload', function(req, res) {
 });
 
 
-app.listen(3000, () => console.log('Blog server running on port 3000!'))
+
+app.listen(WEBSERVER_PORT, () => console.log('Blog server running on port : '+WEBSERVER_PORT))

@@ -22,7 +22,7 @@ export class LoginComponent {
   		this.loginService.validateLogin(this.user).subscribe(result => {
         console.log('result is ', result);
         if(result['status'] === 'success') {
-          localStorage.setItem('loggedInUser', this.user.username);
+          //localStorage.setItem('loggedInUser', this.user.username);
           this.router.navigate(['/createpost']);
         } else {
           alert('Wrong username password');

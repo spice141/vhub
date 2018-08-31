@@ -1,3 +1,4 @@
+<!--
 <div class="table-responsive">
 
         <table>
@@ -25,3 +26,83 @@
         </table>
 
     </div>
+-->
+
+<section class="s-content">
+        
+    <div class="row masonry-wrap">
+        <div class="masonry">
+
+            <div class="grid-sizer"></div>
+
+            <article  *ngFor="let post of posts" class="masonry__brick entry format-standard" style="opacity: 1 !important;" data-aos="fade-up">
+                    
+                <div class="entry__thumb" (click)="editPost(post)">
+                    <a class="entry__thumb-link">
+                        <img src="./assets/images/thumbs/masonry/lamp-400.jpg" 
+                                srcset="./assets/images/thumbs/masonry/lamp-400.jpg 1x, ./assets/images/thumbs/masonry/lamp-800.jpg 2x" alt="">
+                    </a>
+                </div>
+
+                <div class="entry__text" (click)="editPost(post)">
+                    <div class="entry__header">
+                        
+                        <div class="entry__date">
+                            <a>December 15, 2017</a>
+                        </div>
+                        <h1 class="entry__title"><a (click)="editPost(post)">{{post.title}}</a></h1>
+                        
+                    </div>
+                    <div class="entry__excerpt">
+                        <p>
+                            {{post.description}}
+                        </p>
+                    </div>
+                    <div class="entry__meta">
+                        <span class="entry__meta-links">
+                            <a href="category.html">Design</a> 
+                            <a href="category.html">Photography</a>
+                        </span>
+                    </div>
+                </div>
+                <input type="button" value="Delete" (click) = "deletePost(post)">
+            </article> <!-- end article -->
+
+                   </div> <!-- end masonry -->
+    </div> <!-- end masonry-wrap -->
+
+    <div class="row">
+        <div class="col-full">
+            <nav class="pgn">
+                <ul>
+                    <li><a class="pgn__prev" href="#0">Prev</a></li>
+                    <li><a class="pgn__num" href="#0">1</a></li>
+                    <li><span class="pgn__num current">2</span></li>
+                    <li><a class="pgn__num" href="#0">3</a></li>
+                    <li><a class="pgn__num" href="#0">4</a></li>
+                    <li><a class="pgn__num" href="#0">5</a></li>
+                    <li><span class="pgn__num dots">…</span></li>
+                    <li><a class="pgn__num" href="#0">8</a></li>
+                    <li><a class="pgn__next" href="#0">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</section> <!-- s-content -->
+
+
+    <div class="s-footer__bottom">
+        <div class="row">
+            <div class="col-full">
+                <div class="s-footer__copyright">
+                    <span>© Copyright Philosophy 2018</span> 
+                    <span>Site Template by <a href="https://colorlib.com/">Colorlib</a></span>
+                </div>
+
+                <div class="go-top">
+                    <a class="smoothscroll" title="Back to Top" href="#top"></a>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end s-footer__bottom -->

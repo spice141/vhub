@@ -11,25 +11,30 @@ import { FileUploader } from 'ng2-file-upload';
   providers: [ StandardBlogService ]
 })
 export class CreateStandardBlogComponent implements OnInit {
-    private _allowAccess:boolean = false;
+    public _allowAccess:boolean = false;
     private postObj:any;
     private paragraphs = [];
     private routerParams:any;
     private _postId:string;
     private modifyMode:boolean = false;
 
-    public uploader:FileUploader = new FileUploader({url:'http://localhost:3000/upload'});
+    //public uploader:FileUploader = new FileUploader({url:'http://localhost:3000/upload'});
+    public uploader:FileUploader = new FileUploader({url:'http://139.59.6.170:3000/upload'});
+    
 
     constructor(private standardBlogService: StandardBlogService, private route: ActivatedRoute, private router: Router){
-        if(!localStorage.getItem('loggedInUser')){
-            alert("Access is denied");
-            this._allowAccess = false;
-            this.router.navigate(['/']);
-        }
-        else {
-          this._allowAccess = true;
-          this.route.params.subscribe( params => this.routerParams = params);
-        }
+        // if(!localStorage.getItem('loggedInUser')){
+        //     alert("Access is denied");
+        //     this._allowAccess = false;
+        //     this.router.navigate(['/']);
+        // }
+        // else {
+        //   this._allowAccess = true;
+        //   this.route.params.subscribe( params => this.routerParams = params);
+        // }
+
+        this._allowAccess = true;
+        this.route.params.subscribe( params => this.routerParams = params);
     }
 
   ngOnInit(){
@@ -93,20 +98,50 @@ private getCurrentDateInUTC(){
 private createPost(){
   this.postObj.paragraphs = this.paragraphs;
   this.standardBlogService.addPost(this.postObj).subscribe(result => {
-    console.log('result is ', result);
+    //this.router.navigate(['/']);
+    alert("Post created successfully");
   });
 }
 
 
 private savePost(){
   this.standardBlogService.updatePost(this.postObj).subscribe(result => {
-    alert(result.toString());
+    //alert(result.toString());
+    //this.router.navigate(['/']);
+    alert("Post saved successfully");
   });
 }
 
 private logout(){
-  localStorage.removeItem('loggedInUser');
+  //localStorage.removeItem('loggedInUser');
   this.router.navigate(['/']);
 }
+
+private updateFilePathInObj(){
+  //Lead Image for Blog
+  this.postObj.leadImage = "./assets/images/"+this.uploader.queue[0].file.name;
+  //Paragraph Images
+  let i = 1;
+  for (let paragraph of this.paragraphs) {
+    paragraph.image = "./assets/images/"+this.uploader.queue[i].file.name;
+    i++;
+  } 
+}
+
+  createPostandUploadFiles(){
+    this.updateFilePathInObj();
+    this.createPost();
+    this.uploader.uploadAll();
+  }
+
+  modifyPostandUploadFiles(){
+    if (this.uploader.queue.length > 0){
+      this.updateFilePathInObj();
+    }
+    this.savePost();
+    if (this.uploader.queue.length > 0){
+      this.uploader.uploadAll();
+    }
+  }
 
 }

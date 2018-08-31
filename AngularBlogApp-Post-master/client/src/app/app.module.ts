@@ -14,6 +14,7 @@ import { CreateStandardBlogComponent } from './standardBlog/createStandardBlog.c
 import { ModifyStandardBlogComponent } from './standardBlog/modifyStandardBlog.component';
 import { CommonService } from './service/common.service';
 import { FileSelectDirective} from 'ng2-file-upload';
+import { FileUploadModule } from "ng2-file-upload";
 
 
 @NgModule({
@@ -25,14 +26,15 @@ import { FileSelectDirective} from 'ng2-file-upload';
     AddPostComponent,
     StandardBlogComponent,
     CreateStandardBlogComponent,
-    ModifyStandardBlogComponent,
-    FileSelectDirective
+    ModifyStandardBlogComponent
+    
   ],
   imports: [
     BrowserModule,
     ROUTING,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FileUploadModule
   ],
   providers: [CommonService],
   bootstrap: [RootComponent]

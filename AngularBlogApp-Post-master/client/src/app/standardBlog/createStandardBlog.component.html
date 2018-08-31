@@ -41,6 +41,10 @@
                             <label>Image</label>
                             <input class="full-width" type="text" [(ngModel)] = "paragraph.image" [ngModelOptions]="{standalone: true}">
                     </div>
+                    <div class="form-group">
+                        <label for="single">Image</label>
+                        <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" />                                  
+                    </div> 
                     <div>
                             <label>Heading</label>
                             <input class="full-width" type="text" [(ngModel)] = "paragraph.heading" [ngModelOptions]="{standalone: true}">
@@ -86,10 +90,10 @@
                             <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove">Error</i></span>
                         </td>
                         <td nowrap>
-                            <button type="button" class="btn btn-success btn-xs"
+                            <!-- <button type="button" class="btn btn-success btn-xs"
                                     (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
                                 <span class="glyphicon glyphicon-upload"></span> Upload
-                            </button>
+                            </button> -->
                             <button type="button" class="btn btn-warning btn-xs"
                                     (click)="item.cancel()" [disabled]="!item.isUploading">
                                 <span class="glyphicon glyphicon-ban-circle"></span> Cancel
@@ -111,10 +115,10 @@
                         </div>
                     </div>
                     <br>
-                    <button type="button" class="btn btn-success btn-s"
-                            (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                    <!-- <button type="button" class="btn btn-success btn-s"
+                            (click)="uploader.uploadAll();updateFilePathInObj()" [disabled]="!uploader.getNotUploadedItems().length">
                         <span class="glyphicon glyphicon-upload"></span> Upload all
-                    </button>
+                    </button> -->
                     <button type="button" class="btn btn-warning btn-s"
                             (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
                         <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
@@ -126,8 +130,8 @@
                 </div>
             </div>
             <br><br>
-            <input  *ngIf = "!modifyMode" class="btn--primary full-width" type="submit" value="Create Post" (click) = "createPost()">
-            <input  *ngIf = "modifyMode"  class="btn--primary full-width" type="submit" value="Save Changes" (click) = "savePost()">
+            <input  *ngIf = "!modifyMode" class="btn--primary full-width" type="submit" value="Create Post" (click) = "createPostandUploadFiles()">
+            <input  *ngIf = "modifyMode"  class="btn--primary full-width" type="submit" value="Save Changes" (click) = "modifyPostandUploadFiles()">
            
         </form>
     </div>

@@ -5,16 +5,20 @@ import { Post } from '../models/post.model';
 @Injectable()
 export class ShowPostService {
 
-	constructor(private http: HttpClient){
+	private restGatewayDev:string = '';
+	private restGatewayProd:string = 'http://139.59.6.170:3000';
+	private restGateway:string;
 
+	constructor(private http: HttpClient){
+		this.restGateway = this.restGatewayProd;
 	}
 	
 	getAllPost(){
-		return this.http.post('/api/post/getAllPost',{})
+		return this.http.post(this.restGateway+'/api/post/getAllPost',{})
 	}
 
 	deletePost(id){
-		return this.http.post('/api/post/deletePost',{id : id})
+		return this.http.post(this.restGateway+'/api/post/deletePost',{id : id})
 	}
 
 }
