@@ -17,9 +17,14 @@ export class CreateStandardBlogComponent implements OnInit {
     private routerParams:any;
     private _postId:string;
     private modifyMode:boolean = false;
+    private fileUploadPath_Dev:string = "./assets/images/";
+    private fileUploadPath_Prod:string = "./assets/images/";
+    private fileUploadPath:string = "";
 
     //public uploader:FileUploader = new FileUploader({url:'http://localhost:3000/upload'});
+    //public uploader:FileUploader = new FileUploader({url:':3000/upload'});
     public uploader:FileUploader = new FileUploader({url:'http://139.59.6.170:3000/upload'});
+    
     
 
     constructor(private standardBlogService: StandardBlogService, private route: ActivatedRoute, private router: Router){
@@ -35,6 +40,7 @@ export class CreateStandardBlogComponent implements OnInit {
 
         this._allowAccess = true;
         this.route.params.subscribe( params => this.routerParams = params);
+        this.fileUploadPath = this.fileUploadPath_Prod;
     }
 
   ngOnInit(){
@@ -119,11 +125,11 @@ private logout(){
 
 private updateFilePathInObj(){
   //Lead Image for Blog
-  this.postObj.leadImage = "./assets/images/"+this.uploader.queue[0].file.name;
+  this.postObj.leadImage =  this.fileUploadPath+this.uploader.queue[0].file.name;
   //Paragraph Images
   let i = 1;
   for (let paragraph of this.paragraphs) {
-    paragraph.image = "./assets/images/"+this.uploader.queue[i].file.name;
+    paragraph.image =  this.fileUploadPath+this.uploader.queue[i].file.name;
     i++;
   } 
 }

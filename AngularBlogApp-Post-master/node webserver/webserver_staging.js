@@ -1,10 +1,10 @@
 var express = require('express');
 var app = express();
-var port =  80;
+var port =  4200;
 
-app.use('/', express.static(__dirname + '/client'));
+app.use('/', express.static(__dirname + '/client_staging'));
 app.get('*', function(req, res) {
-  res.sendfile('./client/index.html')
+  res.sendfile('./client_staging/index.html')
 })
 
 

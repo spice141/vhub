@@ -5,16 +5,22 @@ const mongoose = require('mongoose');
 
 /*Configs to be changed  for Prod*/
 const urlDev = 'mongodb://localhost/blogDb';
-const urlProd = 'mongodb://139.59.6.170/blogDb';
+const urlProd = 'mongodb://localhost/blogDb';
 const url = urlProd;
 
 const CORSDev = 'http://localhost:4200';
-const CORSProd = 'http://139.59.6.170';
-const CORS = CORSProd;
+const CORSStaging = 'http://www.pricelesspeanuts.com:4200';
+const CORSProd = 'http://www.pricelesspeanuts.com';
+const CORS = CORSStaging;
 
 var DIR_DEV = '../client/src/assets/images';
+var DIR_STAGING = '../iis/client_staging/assets/images';
 var DIR_PROD = '../iis/client/assets/images';
-var DIR = DIR_PROD;
+var DIR = DIR_STAGING;
+
+var expressGateWayURL_DEV = '';
+var expressGateWayURL_PROD = 'http://pricelesspeanuts.com:3000';
+var expressGateWayURL = expressGateWayURL_DEV;
 
 var WEBSERVER_PORT = 3000;
 /*Configs to be changed  for Prod*/
