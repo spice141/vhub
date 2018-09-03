@@ -14,7 +14,7 @@
 
                 <div class="header__logo">
                     <a class="logo" href="index.html">
-                        <img src="./assets/images/logo.svg" alt="Homepage">
+                        <img src="./assets/images/logo.jpg" alt="Homepage">
                     </a>
                 </div> <!-- end header__logo -->
 
@@ -70,13 +70,13 @@
 
                 <div class="featured">
 
-                    <div class="featured__column featured__column--big">
-                        <div class="entry" style="background-image:url('./assets/images/thumbs/featured/featured-guitarman.jpg');">
+                    <div (click) = "onFavPostClick(favPost1)" class="featured__column featured__column--big">
+                        <div class="entry" [ngStyle]="{ 'background-image': 'url(' + favPost1.image + ')'}">
                             
                             <div class="entry__content">
-                                <span class="entry__category"><a href="#0">Music</a></span>
+                                <span class="entry__category"><a href="#0">{{favPost1.asscField}}</a></span>
 
-                                <h1><a href="#0" title="">What Your Music Preference Says About You and Your Personality.</a></h1>
+                                <h1><a href="#0" title="">{{favPost1.title}}</a></h1>
 
                                 <div class="entry__info">
                                     <a href="#0" class="entry__profile-pic">
@@ -84,8 +84,8 @@
                                     </a>
 
                                     <ul class="entry__meta">
-                                        <li><a href="#0">John Doe</a></li>
-                                        <li>December 29, 2017</li>
+                                        <!-- <li><a href="#0">John Doe</a></li> -->
+                                        <li>{{favPost1.date}}</li>
                                     </ul>
                                 </div>
                             </div> <!-- end entry__content -->
@@ -95,42 +95,42 @@
 
                     <div class="featured__column featured__column--small">
 
-                        <div class="entry" style="background-image:url('./assets/images/thumbs/featured/featured-watch.jpg');">
+                        <div (click) = "onFavPostClick(favPost2)"class="entry" [ngStyle]="{ 'background-image': 'url(' + favPost2.image + ')'}">
                             
                             <div class="entry__content">
-                                <span class="entry__category"><a href="#0">Management</a></span>
+                                <span class="entry__category"><a href="#0">{{favPost2.asscField}}</a></span>
 
-                                <h1><a href="#0" title="">The Pomodoro Technique Really Works.</a></h1>
+                                <h1><a href="#0" title="">{{favPost2.title}}</a></h1>
 
                                 <div class="entry__info">
-                                    <a href="#0" class="entry__profile-pic">
+                                    <!-- <a href="#0" class="entry__profile-pic">
                                         <img class="avatar" src="./assets/images/avatars/user-03.jpg" alt="">
-                                    </a>
+                                    </a> -->
 
                                     <ul class="entry__meta">
-                                        <li><a href="#0">John Doe</a></li>
-                                        <li>December 27, 2017</li>
+                                        <!-- <li><a href="#0">John Doe</a></li> -->
+                                        <li>{{favPost2.date}}</li>
                                     </ul>
                                 </div>
                             </div> <!-- end entry__content -->
                           
                         </div> <!-- end entry -->
 
-                        <div class="entry" style="background-image:url('./assets/images/thumbs/featured/featured-beetle.jpg');">
+                        <div (click) = "onFavPostClick(favPost3)" class="entry" [ngStyle]="{ 'background-image': 'url(' + favPost3.image + ')'}">
 
                             <div class="entry__content">
-                                <span class="entry__category"><a href="#0">LifeStyle</a></span>
+                                <span class="entry__category"><a href="#0">{{favPost3.asscField}}</a></span>
 
-                                <h1><a href="#0" title="">Throwback To The Good Old Days.</a></h1>
+                                <h1><a href="#0" title="">{{favPost3.title}}</a></h1>
 
                                 <div class="entry__info">
-                                    <a href="#0" class="entry__profile-pic">
+                                    <!-- <a href="#0" class="entry__profile-pic">
                                         <img class="avatar" src="./assets/images/avatars/user-03.jpg" alt="">
-                                    </a>
+                                    </a> -->
 
                                     <ul class="entry__meta">
-                                        <li><a href="#0">John Doe</a></li>
-                                        <li>December 21, 2017</li>
+                                        <!-- <li><a href="#0">John Doe</a></li> -->
+                                        <li>{{favPost3.date}}</li>
                                     </ul>
                                 </div>
                             </div> <!-- end entry__content -->
@@ -149,18 +149,19 @@
     <!-- s-content
     ================================================== -->
     <section class="s-content">
-        
+        <pre class="prettyprint prettyprinted" style="">
+            <input class="full-width" type="text" placeholder="Search Text Goes Here..." [(ngModel)] = "searchText">
+        </pre>
         <div class="row masonry-wrap">
             <div class="masonry">
 
                 <div class="grid-sizer"></div>
 
-                <article  *ngFor="let post of posts" class="masonry__brick entry format-standard" style="opacity: 1 !important;" data-aos="fade-up">
+                <article  *ngFor="let post of posts | filter : searchText" class="masonry__brick entry format-standard" style="opacity: 1 !important;" data-aos="fade-up" (click)="onCardClick(post)">
                         
                     <div class="entry__thumb">
                         <a class="entry__thumb-link">
-                            <img src="./assets/images/thumbs/masonry/lamp-400.jpg" 
-                                    srcset="./assets/images/thumbs/masonry/lamp-400.jpg 1x, ./assets/images/thumbs/masonry/lamp-800.jpg 2x" alt="">
+                            <img class = "cardImage" [src]="post.leadImage?post.leadImage:''" alt="">
                         </a>
                     </div>
     
@@ -191,7 +192,7 @@
                        </div> <!-- end masonry -->
         </div> <!-- end masonry-wrap -->
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-full">
                 <nav class="pgn">
                     <ul>
@@ -207,7 +208,7 @@
                     </ul>
                 </nav>
             </div>
-        </div>
+        </div> -->
 
     </section> <!-- s-content -->
 
@@ -216,8 +217,8 @@
             <div class="row">
                 <div class="col-full">
                     <div class="s-footer__copyright">
-                        <span>© Copyright Philosophy 2018</span> 
-                        <span>Site Template by <a href="https://colorlib.com/">Colorlib</a></span>
+                        <span>© Copyright www.pricelesspeanuts.com</span> 
+                        
                     </div>
 
                     <div class="go-top">

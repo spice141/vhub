@@ -16,6 +16,9 @@ export class ShowPostComponent implements OnInit {
  
   public posts : any [];
   public post_to_delete;
+  public favPost1:any;
+  public favPost2:any;
+  public favPost3:any;
  
   constructor(private showPostService: ShowPostService, private commonService: CommonService, private router: Router) {
        
@@ -23,7 +26,7 @@ export class ShowPostComponent implements OnInit {
  
   ngOnInit(){
     this.getAllPost();
- 
+    this.getFavPosts();
     this.commonService.postAdded_Observable.subscribe(res => {
       this.getAllPost();
     });
@@ -40,11 +43,19 @@ export class ShowPostComponent implements OnInit {
  
   getAllPost(){
     this.showPostService.getAllPost().subscribe(result => {
-        console.log('result is ', result);
-        this.posts = result['data'];
+       this.posts = result['data'];
     });
   }
  
+  getFavPosts(){
+    this.showPostService.getAllFavPost().subscribe(result => {
+     let favPostArray = result['data'];
+     this.favPost1 = favPostArray[0];
+     this.favPost2 = favPostArray[1];
+     this.favPost3 = favPostArray[2];
+  });
+  }
+
   editPost(post: Post){
     this.commonService.setPostToEdit(post);
   }
@@ -58,6 +69,10 @@ export class ShowPostComponent implements OnInit {
 
   onCardClick(post:Post){
     this.router.navigate(['/stdBlog',post._id]);
+  }
+
+  onFavPostClick(favPost){
+    this.router.navigate(['/stdBlog',favPost.post_id]);
   }
  
 }

@@ -28,7 +28,7 @@ export class StandardBlogComponent implements OnInit {
    
     getPost(post_id){
       this.standardBlogService.getPost(post_id).subscribe(result => {
-          console.log('result is ', result);
+          //console.log('result is ', result);
           this.post = result['data'];
           if(this.post.paragraphs){
             this.paras = this.post.paragraphs;

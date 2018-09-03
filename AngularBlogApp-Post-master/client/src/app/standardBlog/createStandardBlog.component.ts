@@ -21,9 +21,11 @@ export class CreateStandardBlogComponent implements OnInit {
     private fileUploadPath_Prod:string = "./assets/images/";
     private fileUploadPath:string = "";
 
-    //public uploader:FileUploader = new FileUploader({url:'http://localhost:3000/upload'});
-    //public uploader:FileUploader = new FileUploader({url:':3000/upload'});
-    public uploader:FileUploader = new FileUploader({url:'http://139.59.6.170:3000/upload'});
+    /*Dev Asset Location*/
+    public uploader:FileUploader = new FileUploader({url:'http://localhost:3000/upload'});
+
+    /*Prod Asset Location*/
+    //public uploader:FileUploader = new FileUploader({url:'http://139.59.6.170:3000/upload'});
     
     
 

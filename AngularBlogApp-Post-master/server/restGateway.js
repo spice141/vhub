@@ -11,22 +11,19 @@ const url = urlProd;
 const CORSDev = 'http://localhost:4200';
 const CORSStaging = 'http://www.pricelesspeanuts.com:4200';
 const CORSProd = 'http://www.pricelesspeanuts.com';
-const CORS = CORSStaging;
+const CORS = CORSDev;
 
 var DIR_DEV = '../client/src/assets/images';
 var DIR_STAGING = '../iis/client_staging/assets/images';
 var DIR_PROD = '../iis/client/assets/images';
-var DIR = DIR_STAGING;
-
-var expressGateWayURL_DEV = '';
-var expressGateWayURL_PROD = 'http://pricelesspeanuts.com:3000';
-var expressGateWayURL = expressGateWayURL_DEV;
+var DIR = DIR_DEV;
 
 var WEBSERVER_PORT = 3000;
 /*Configs to be changed  for Prod*/
 
 const User = require('./model/user');
 const Post = require('./model/post');
+const FavPost = require('./model/favPost');
 var multer = require('multer');
 
 
@@ -127,6 +124,19 @@ app.post('/api/post/getAllPost', (req, res) => {
 	mongoose.connect(url, { useMongoClient: true } , function(err){
 		if(err) throw err;
 		Post.find({},[],{ sort: { _id: -1 } },(err, doc) => {
+			if(err) throw err;
+			return res.status(200).json({
+				status: 'success',
+				data: doc
+			})
+		})
+	});
+})
+
+app.post('/api/post/getAllFavPost', (req, res) => {
+	mongoose.connect(url, { useMongoClient: true } , function(err){
+		if(err) throw err;
+		FavPost.find({},[],{ sort: { _id: -1 } },(err, doc) => {
 			if(err) throw err;
 			return res.status(200).json({
 				status: 'success',

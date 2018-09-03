@@ -10,11 +10,15 @@ export class ShowPostService {
 	private restGateway:string;
 
 	constructor(private http: HttpClient){
-		this.restGateway = this.restGatewayProd;
+		this.restGateway = this.restGatewayDev;
 	}
 	
 	getAllPost(){
 		return this.http.post(this.restGateway+'/api/post/getAllPost',{})
+	}
+
+	getAllFavPost(){
+		return this.http.post(this.restGateway+'/api/post/getAllFavPost',{})
 	}
 
 	deletePost(id){
