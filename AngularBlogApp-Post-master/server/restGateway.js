@@ -11,12 +11,12 @@ const url = urlProd;
 const CORSDev = 'http://localhost:4200';
 const CORSStaging = 'http://www.pricelesspeanuts.com:4200';
 const CORSProd = 'http://www.pricelesspeanuts.com';
-const CORS = CORSDev;
+const CORS = CORSStaging;
 
 var DIR_DEV = '../client/src/assets/images';
 var DIR_STAGING = '../iis/client_staging/assets/images';
 var DIR_PROD = '../iis/client/assets/images';
-var DIR = DIR_DEV;
+var DIR = DIR_STAGING;
 
 var WEBSERVER_PORT = 3000;
 /*Configs to be changed  for Prod*/

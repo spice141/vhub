@@ -9,7 +9,7 @@ export class AddPostService {
 	private restGateway:string;
 
 	constructor(private http: HttpClient){
-		this.restGateway = this.restGatewayDev;
+		this.restGateway = this.restGatewayProd;
 	}
 	
 	addPost(post: Post){

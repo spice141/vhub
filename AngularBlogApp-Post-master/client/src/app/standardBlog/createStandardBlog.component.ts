@@ -1,9 +1,11 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,AfterViewInit} from '@angular/core';
 import { StandardBlogService } from './standardBlog.service';
 import { Post } from '../models/post.model';
 import { Router,ActivatedRoute} from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
- 
+
+declare var jQuery:any;
+
 @Component({
   selector: 'create-standard-blog',
   templateUrl: './createStandardBlog.component.html',
@@ -22,10 +24,10 @@ export class CreateStandardBlogComponent implements OnInit {
     private fileUploadPath:string = "";
 
     /*Dev Asset Location*/
-    public uploader:FileUploader = new FileUploader({url:'http://localhost:3000/upload'});
+    //public uploader:FileUploader = new FileUploader({url:'http://localhost:3000/upload'});
 
     /*Prod Asset Location*/
-    //public uploader:FileUploader = new FileUploader({url:'http://139.59.6.170:3000/upload'});
+    public uploader:FileUploader = new FileUploader({url:'http://139.59.6.170:3000/upload'});
     
     
 
@@ -61,6 +63,22 @@ export class CreateStandardBlogComponent implements OnInit {
       }
     
   }
+
+  ngAfterViewInit(){
+    this.preloader();
+  }
+
+  preloader(){
+    // will first fade out the loading animation 
+    jQuery("#loader").fadeOut("slow", function() {
+       // will fade out the whole DIV that covers the website.
+       jQuery("#preloader").delay(300).fadeOut("slow");
+   }); 
+ 
+   // for hero content animations 
+   jQuery("html").removeClass('cl-preload');
+   jQuery("html").addClass('cl-loaded');
+ }
 
 private initStdPostObj(){
     this.postObj = {

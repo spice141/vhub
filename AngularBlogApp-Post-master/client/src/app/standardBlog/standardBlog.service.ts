@@ -11,7 +11,7 @@ export class StandardBlogService {
 	private restGateway:string;
 
 	constructor(private http: HttpClient){
-		this.restGateway = this.restGatewayDev;
+		this.restGateway = this.restGatewayProd;
 	}
 	
 	getPost(post_id){

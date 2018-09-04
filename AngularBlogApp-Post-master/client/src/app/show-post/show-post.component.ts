@@ -23,6 +23,7 @@ export class ShowPostComponent implements OnInit {
   public favPost1:any;
   public favPost2:any;
   public favPost3:any;
+  public searchText:string;
  
   constructor(private showPostService: ShowPostService, private commonService: CommonService, private router: Router) {
        
