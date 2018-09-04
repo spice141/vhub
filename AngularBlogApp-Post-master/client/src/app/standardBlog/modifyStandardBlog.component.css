@@ -1,3 +1,7 @@
 .table-responsive{
    background: whitesmoke !important;
 }
+.cardImage{
+    width: 100% !important;
+    height: 200px !important;
+}

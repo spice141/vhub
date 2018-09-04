@@ -1,8 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { ShowPostService } from './show-post.service';
 import { Post } from '../models/post.model';
 import { CommonService, } from '../service/common.service';
 import { Router } from '@angular/router';
+
+declare var jQuery:any;
+
+
  
 @Component({
   selector: 'app-show-post',
@@ -27,10 +31,28 @@ export class ShowPostComponent implements OnInit {
   ngOnInit(){
     this.getAllPost();
     this.getFavPosts();
-    this.commonService.postAdded_Observable.subscribe(res => {
-      this.getAllPost();
-    });
+    
+    // this.commonService.postAdded_Observable.subscribe(res => {
+    //   this.getAllPost();
+    //   this.getFavPosts();
+    // });
   }
+
+  ngAfterViewInit(){
+    this.preloader();
+  }
+
+  preloader(){
+    // will first fade out the loading animation 
+    jQuery("#loader").fadeOut("slow", function() {
+       // will fade out the whole DIV that covers the website.
+       jQuery("#preloader").delay(300).fadeOut("slow");
+   }); 
+ 
+   // for hero content animations 
+   jQuery("html").removeClass('cl-preload');
+   jQuery("html").addClass('cl-loaded');
+ }
  
   setDelete(post: Post){
     this.post_to_delete = post;

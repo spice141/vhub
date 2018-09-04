@@ -71,6 +71,7 @@ private initStdPostObj(){
       "leadImage": "",
       "leadText": "",
       "leadTextCont": "",
+      "publishPost": "",
       "paragraphs": []
     };
   }
@@ -106,8 +107,8 @@ private getCurrentDateInUTC(){
 private createPost(){
   this.postObj.paragraphs = this.paragraphs;
   this.standardBlogService.addPost(this.postObj).subscribe(result => {
-    //this.router.navigate(['/']);
     alert("Post created successfully");
+    this.router.navigate(['/']);
   });
 }
 

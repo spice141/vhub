@@ -10,6 +10,7 @@ const postSchema = new Schema({
   leadImage: { type: String, required: true },
   leadText: { type: String, required: true },
   leadTextCont: { type: String, required: true },
+  publishPost: { type: String, required: true },
   paragraphs : [{
     image : String,
     heading : String,

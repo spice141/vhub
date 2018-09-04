@@ -65,13 +65,13 @@
         </header> <!-- header -->
 
 
-        <div class="pageheader-content row">
+        <div *ngIf = "favPost1" class="pageheader-content row">
             <div class="col-full">
 
                 <div class="featured">
 
                     <div (click) = "onFavPostClick(favPost1)" class="featured__column featured__column--big">
-                        <div class="entry" [ngStyle]="{ 'background-image': 'url(' + favPost1.image + ')'}">
+                        <div class="entry" [ngStyle]="{ 'background-image': 'url(' +  favPost1.image  + ')'}">
                             
                             <div class="entry__content">
                                 <span class="entry__category"><a href="#0">{{favPost1.asscField}}</a></span>
@@ -85,7 +85,7 @@
 
                                     <ul class="entry__meta">
                                         <!-- <li><a href="#0">John Doe</a></li> -->
-                                        <li>{{favPost1.date}}</li>
+                                        <li>{{favPost1 ? favPost1.date : ''}}</li>
                                     </ul>
                                 </div>
                             </div> <!-- end entry__content -->
@@ -95,7 +95,7 @@
 
                     <div class="featured__column featured__column--small">
 
-                        <div (click) = "onFavPostClick(favPost2)"class="entry" [ngStyle]="{ 'background-image': 'url(' + favPost2.image + ')'}">
+                        <div (click) = "onFavPostClick(favPost2)"class="entry" [ngStyle]="{ 'background-image': 'url(' + favPost2.image  + ')'}">
                             
                             <div class="entry__content">
                                 <span class="entry__category"><a href="#0">{{favPost2.asscField}}</a></span>
@@ -149,45 +149,48 @@
     <!-- s-content
     ================================================== -->
     <section class="s-content">
-        <pre class="prettyprint prettyprinted" style="">
-            <input class="full-width" type="text" placeholder="Search Text Goes Here..." [(ngModel)] = "searchText">
-        </pre>
+        
         <div class="row masonry-wrap">
             <div class="masonry">
-
+                <pre class="prettyprint prettyprinted" style="">
+                    <input class="full-width" type="text" placeholder="Search Text Goes Here..." [(ngModel)] = "searchText">
+                </pre>
                 <div class="grid-sizer"></div>
-
-                <article  *ngFor="let post of posts | filter : searchText" class="masonry__brick entry format-standard" style="opacity: 1 !important;" data-aos="fade-up" (click)="onCardClick(post)">
-                        
-                    <div class="entry__thumb">
-                        <a class="entry__thumb-link">
-                            <img class = "cardImage" [src]="post.leadImage?post.leadImage:''" alt="">
-                        </a>
-                    </div>
-    
-                    <div class="entry__text">
-                        <div class="entry__header">
-                            
-                            <div class="entry__date">
-                                <a>December 15, 2017</a>
+                <ng-container *ngFor="let post of posts | filter : searchText">
+                <article   *ngIf = "post.publishPost != 'no' || !post.publishPost " class="masonry__brick entry format-standard" style="opacity: 1 !important;" data-aos="fade-up" (click)="onCardClick(post)">
+                   
+                        <div class="entry__thumb">
+                            <a class="entry__thumb-link">
+                                <img class = "cardImage" [src]="post.leadImage?post.leadImage:''" alt="">
+                            </a>
+                        </div>
+        
+                        <div class="entry__text">
+                            <div class="entry__header">
+                                
+                                <div class="entry__date">
+                                    <a>December 15, 2017</a>
+                                </div>
+                                <h1 class="entry__title"><a (click)="onCardClick(post)">{{post.title}}</a></h1>
+                                
                             </div>
-                            <h1 class="entry__title"><a (click)="onCardClick(post)">{{post.title}}</a></h1>
-                            
+                            <div class="entry__excerpt">
+                                <p>
+                                    {{post.description}}
+                                </p>
+                            </div>
+                            <div class="entry__meta">
+                                <span class="entry__meta-links">
+                                    <a href="category.html">Design</a> 
+                                    <a href="category.html">Photography</a>
+                                </span>
+                            </div>
                         </div>
-                        <div class="entry__excerpt">
-                            <p>
-                                {{post.description}}
-                            </p>
-                        </div>
-                        <div class="entry__meta">
-                            <span class="entry__meta-links">
-                                <a href="category.html">Design</a> 
-                                <a href="category.html">Photography</a>
-                            </span>
-                        </div>
-                    </div>
+                      
+                   
     
                 </article> <!-- end article -->
+            </ng-container>  
 
                        </div> <!-- end masonry -->
         </div> <!-- end masonry-wrap -->

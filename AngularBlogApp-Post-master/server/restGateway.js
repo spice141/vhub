@@ -92,6 +92,7 @@ app.post('/api/post/createPost', (req, res) => {
 			leadImage: req.body.leadImage,
 			leadText: req.body.leadText,
 			leadTextCont: req.body.leadTextCont,
+			publishPost: req.body.publishPost,
 			paragraphs: req.body.paragraphs
 			 
 		})
@@ -160,6 +161,7 @@ app.post('/api/post/updatePost', (req, res) => {
 				leadImage: req.body.leadImage,
 				leadText: req.body.leadText,
 				leadTextCont: req.body.leadTextCont,
+				publishPost: req.body.publishPost,
 				paragraphs: req.body.paragraphs
 
 
