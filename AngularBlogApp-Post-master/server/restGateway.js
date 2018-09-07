@@ -4,19 +4,21 @@ const app = express()
 const mongoose = require('mongoose');
 
 /*Configs to be changed  for Prod*/
-const urlDev = 'mongodb://localhost/blogDb';
-const urlProd = 'mongodb://localhost/blogDb';
-const url = urlProd;
+const urlDev = "mongodb://localhost/blogDb";
+const urlStaging = "mongodb://localhost/blogDb"
+const urlProd = "mongodb://localhost/blogDb";
+
+const url = urlDev;
 
 const CORSDev = 'http://localhost:4200';
 const CORSStaging = 'http://www.pricelesspeanuts.com:4200';
 const CORSProd = 'http://www.pricelesspeanuts.com';
-const CORS = CORSStaging;
+const CORS = CORSDev;
 
 var DIR_DEV = '../client/src/assets/images';
 var DIR_STAGING = '../iis/client_staging/assets/images';
 var DIR_PROD = '../iis/client/assets/images';
-var DIR = DIR_STAGING;
+var DIR = DIR_DEV;
 
 var WEBSERVER_PORT = 3000;
 /*Configs to be changed  for Prod*/
@@ -41,7 +43,7 @@ app.use(function(req, res, next) { //allow cross origin requests
 
 
 app.post('/api/user/login', (req, res) => {
-	mongoose.connect(url,{ useMongoClient: true }, function(err){
+	mongoose.connect(url,{ useMongoClient: true, user: "dba", pass: "P@55word" }, function(err){
 		if(err) throw err;
 		User.find({
 			username : req.body.username, password : req.body.password
@@ -64,7 +66,7 @@ app.post('/api/user/login', (req, res) => {
 })
 
 app.post('/api/user/create', (req, res) => {
-	mongoose.connect(url, function(err){
+	mongoose.connect(url,{user: "dba", pass: "P@55word"}, function(err){
 		if(err) throw err;
 		const user = new User({
 			name: req.body.name,
@@ -82,7 +84,7 @@ app.post('/api/user/create', (req, res) => {
 })
 
 app.post('/api/post/createPost', (req, res) => {
-	mongoose.connect(url, { useMongoClient: true }, function(err){
+	mongoose.connect(url, { useMongoClient: true, user: "dba", pass: "P@55word" }, function(err){
 		if(err) throw err;
 		const post = new Post({
 			title: req.body.title,
@@ -107,7 +109,7 @@ app.post('/api/post/createPost', (req, res) => {
 })
 
 app.post('/api/post/getPost', (req, res) => {
-	mongoose.connect(url, { useMongoClient: true }, function(err){
+	mongoose.connect(url, { useMongoClient: true , user: "dba", pass: "P@55word" }, function(err){
         if(err) throw err;
         Post.findOne(
             {_id: req.body.id },
@@ -122,7 +124,7 @@ app.post('/api/post/getPost', (req, res) => {
 })
 
 app.post('/api/post/getAllPost', (req, res) => {
-	mongoose.connect(url, { useMongoClient: true } , function(err){
+	mongoose.connect(url, { useMongoClient: true, user: "dba", pass: "P@55word" } , function(err){
 		if(err) throw err;
 		Post.find({},[],{ sort: { _id: -1 } },(err, doc) => {
 			if(err) throw err;
@@ -135,7 +137,7 @@ app.post('/api/post/getAllPost', (req, res) => {
 })
 
 app.post('/api/post/getAllFavPost', (req, res) => {
-	mongoose.connect(url, { useMongoClient: true } , function(err){
+	mongoose.connect(url, { useMongoClient: true, user: "dba", pass: "P@55word" } , function(err){
 		if(err) throw err;
 		FavPost.find({},[],{ sort: { _id: -1 } },(err, doc) => {
 			if(err) throw err;
@@ -148,7 +150,7 @@ app.post('/api/post/getAllFavPost', (req, res) => {
 })
 
 app.post('/api/post/updatePost', (req, res) => {
-    mongoose.connect(url, { useMongoClient: true }, function(err){
+    mongoose.connect(url, { useMongoClient: true, user: "dba", pass: "P@55word" }, function(err){
         if(err) throw err;
         Post.update(
             {_id: req.body._id },
@@ -177,7 +179,7 @@ app.post('/api/post/updatePost', (req, res) => {
 })
 
 app.post('/api/post/deletePost', (req, res) => {
-    mongoose.connect(url, { useMongoClient: true }, function(err){
+    mongoose.connect(url, { useMongoClient: true, user: "dba", pass: "P@55word"}, function(err){
         if(err) throw err;
         Post.findByIdAndRemove(req.body.id,
             (err, doc) => {

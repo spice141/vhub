@@ -10,7 +10,7 @@ export class LoginService {
 	private restGateway:string;
 
 	constructor(private http: HttpClient){
-		this.restGateway = this.restGatewayProd;
+		this.restGateway = this.restGatewayDev;
 	}
 	
 	validateLogin(user: User){
