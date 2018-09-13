@@ -73,9 +73,9 @@ export class ModifyStandardBlogComponent implements OnInit {
   }
  
   deletePost(post){
-    this.showPostService.deletePost(post._id).subscribe(res => {
+   this.showPostService.deletePost(post).subscribe(res => {
       this.getAllPost();
-      this.closeBtn.nativeElement.click();
+      //this.closeBtn.nativeElement.click();
     })
   }
 
@@ -83,7 +83,7 @@ export class ModifyStandardBlogComponent implements OnInit {
     this.router.navigate(['/stdBlog',post._id]);
   }
 
-  private logout(){
+  public logout(){
     localStorage.removeItem('loggedInUserToken');
     this.router.navigate(['/']);
   }

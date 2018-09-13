@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Post } from '../models/post.model';
+
 const httpOptions = {
 	headers: new HttpHeaders({
 	'Content-Type':  'application/json',
 	'x-access-token': localStorage.getItem('loggedInUserToken')
    })
 };
-
 
 @Injectable()
 export class StandardBlogService {
@@ -30,19 +30,22 @@ export class StandardBlogService {
 		})
 	}
 
-	addPost(post: Post){
-		return this.http.post(this.restGateway+'/api/post/createPost',post, httpOptions)
+	/* All below rest apis require authentication  token*/
+	addPost(post){
+		//return this.http.post(this.restGateway+'/api/post/createPost',post, httpOptions)
+		post.token = localStorage.getItem('loggedInUserToken');
+		return this.http.post(this.restGateway+'/api/post/createPost',post,httpOptions)
 	}
 
-	updatePost(post: Post){
-			
-		return this.http.post(this.restGateway+'/api/post/updatePost', post, httpOptions)
+	updatePost(post){
+		post.token = localStorage.getItem('loggedInUserToken');
+		return this.http.post(this.restGateway+'/api/post/updatePost', post,httpOptions)
 	}
 
 	
-	deletePost(id){
-	
-		return this.http.post(this.restGateway+'/api/post/deletePost',{id : id}, httpOptions)
+	deletePost(post){
+		post.token = localStorage.getItem('loggedInUserToken');
+		return this.http.post(this.restGateway+'/api/post/deletePost',post,httpOptions)
 	}
 
 }

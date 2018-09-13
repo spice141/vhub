@@ -70,9 +70,9 @@ export class CreateStandardBlogComponent implements OnInit {
 
   ngAfterViewInit(){
     this.preloader();
-    var uo: FileUploaderOptions = {};
-    uo.headers = [{ name: 'x-access-token', value : localStorage.getItem('loggedInUserToken') } ]
-    this.uploader.setOptions(uo);
+    // var uo: FileUploaderOptions = {};
+    // uo.headers = [{ name: 'x-access-token', value : localStorage.getItem('loggedInUserToken') } ]
+    // this.uploader.setOptions(uo);
   }
 
   preloader(){
@@ -146,7 +146,7 @@ private savePost(){
   });
 }
 
-private logout(){
+public logout(){
   localStorage.removeItem('loggedInUserToken');
   this.router.navigate(['/']);
 }

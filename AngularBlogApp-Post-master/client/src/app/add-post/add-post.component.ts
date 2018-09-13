@@ -29,12 +29,12 @@ addPost() {
   if(this.post.title && this.post.description){
       if(this.post._id){
         this.addPostService.updatePost(this.post).subscribe(res =>{
-          this.closeBtn.nativeElement.click();
+          //this.closeBtn.nativeElement.click();
           this.commonService.notifyPostAddition();
         });
       } else {
         this.addPostService.addPost(this.post).subscribe(res =>{
-          this.closeBtn.nativeElement.click();
+          //this.closeBtn.nativeElement.click();
           this.commonService.notifyPostAddition();
         });
       }

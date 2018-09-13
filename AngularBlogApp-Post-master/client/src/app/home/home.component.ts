@@ -13,7 +13,7 @@ export class HomeComponent {
     constructor(private commonService: CommonService){
          
         this.commonService.postEdit_Observable.subscribe(res => {
-            this.addBtn.nativeElement.click();
+            //this.addBtn.nativeElement.click();
         });
  
     }

@@ -45,34 +45,23 @@ app.use(function(req, res, next) { //allow cross origin requests
 
 app.use(apiRoutes);
 
-/*Upload Functionality*/
-
-var storage = multer.diskStorage({ //multers disk storage settings
-	destination: function (req, file, cb) {
-		cb(null, DIR);
-	},
-	filename: function (req, file, cb) {
-		var datetimestamp = Date.now();
-		//cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
-		cb(null,file.originalname);
-	}
-});
-
-var upload = multer({ //multer settings
-				storage: storage
-			}).single('file');
-
-/** API path that will upload the files */
-app.post('/upload', function(req, res) {
-	upload(req,res,function(err){
-		//console.log(req.file);
-		if(err){
-			 res.json({error_code:1,err_desc:err});
-			 return;
-		}
-		 res.json({error_code:0,err_desc:null});
-	});
-});
+// app.post('/api/user/create', (req, res) => {
+// 	mongoose.connect(url,{user: "dba", pass: "P@55word"}, function(err){
+// 		if(err) throw err;
+// 		const user = new User({
+// 			name: req.body.name,
+// 			username: req.body.username,
+// 			password: req.body.password
+// 		})
+// 		user.save((err, res) => {
+// 			if(err) throw err;
+// 			return res.status(200).json({
+// 				status: 'success',
+// 				data: res
+// 			})
+// 		})
+// 	});
+// })
 
 app.post('/api/user/login', (req, res) => {
 	mongoose.connect(url,{ useMongoClient: true, user: "dba", pass: "P@55word" }, function(err){
@@ -151,10 +140,43 @@ app.post('/api/post/getAllFavPost', (req, res) => {
 
 
 // route middleware to verify a token
-app.use('/api/post',function(req, res, next) {
+// app.use('/api/post/createPost',function(req, res, next) {
 
-	// check header or url parameters or post parameters for token
-	var token = req.body.token || req.query.token || req.headers['x-access-token'];
+// 	// check header or url parameters or post parameters for token
+// 	var token =  req.body.token || req.query.token || req.headers['x-access-token'];
+  
+// 	// decode token
+// 	if (token) {
+  
+// 	  // verifies secret and checks exp
+// 	  jwt.verify(token, config.secret, function(err, decoded) {      
+// 		if (err) {
+// 		  return res.json({ success: false, message: 'Failed to authenticate token.' });    
+// 		} else {
+// 		  // if everything is good, save to request for use in other routes
+// 		  req.decoded = decoded;    
+// 		  next();
+// 		}
+// 	  });
+  
+// 	} else {
+  
+// 	  // if there is no token
+// 	  // return an error
+// 	  return res.status(403).send({ 
+// 		  success: false, 
+// 		  message: 'No token provided.' 
+// 	  });
+  
+// 	}
+//   });
+
+
+
+
+app.post('/api/post/createPost', (req, res) => {
+
+	var token = req.body.token;
   
 	// decode token
 	if (token) {
@@ -163,10 +185,32 @@ app.use('/api/post',function(req, res, next) {
 	  jwt.verify(token, config.secret, function(err, decoded) {      
 		if (err) {
 		  return res.json({ success: false, message: 'Failed to authenticate token.' });    
-		} else {
-		  // if everything is good, save to request for use in other routes
-		  req.decoded = decoded;    
-		  next();
+		} 
+		else {
+			// if everything is good, save to request for use in other routes
+			req.decoded = decoded;    
+			mongoose.connect(url, { useMongoClient: true, user: "dba", pass: "P@55word" }, function(err){
+				if(err) throw err;
+				const post = new Post({
+					title: req.body.title,
+					description:  req.body.description,
+					date: req.body.date,
+					asscField:  req.body.asscField,
+					leadImage: req.body.leadImage,
+					leadText: req.body.leadText,
+					leadTextCont: req.body.leadTextCont,
+					publishPost: req.body.publishPost,
+					paragraphs: req.body.paragraphs
+					 
+				})
+				post.save((err, doc) => {
+					if(err) throw err;
+					return res.status(200).json({
+						status: 'success',
+						data: doc
+					})
+				})
+			});
 		}
 	  });
   
@@ -180,94 +224,141 @@ app.use('/api/post',function(req, res, next) {
 	  });
   
 	}
-  });
-
-
-// app.post('/api/user/create', (req, res) => {
-// 	mongoose.connect(url,{user: "dba", pass: "P@55word"}, function(err){
-// 		if(err) throw err;
-// 		const user = new User({
-// 			name: req.body.name,
-// 			username: req.body.username,
-// 			password: req.body.password
-// 		})
-// 		user.save((err, res) => {
-// 			if(err) throw err;
-// 			return res.status(200).json({
-// 				status: 'success',
-// 				data: res
-// 			})
-// 		})
-// 	});
-// })
-
-app.post('/api/post/createPost', (req, res) => {
-	mongoose.connect(url, { useMongoClient: true, user: "dba", pass: "P@55word" }, function(err){
-		if(err) throw err;
-		const post = new Post({
-			title: req.body.title,
-			description:  req.body.description,
-			date: req.body.date,
-			asscField:  req.body.asscField,
-			leadImage: req.body.leadImage,
-			leadText: req.body.leadText,
-			leadTextCont: req.body.leadTextCont,
-			publishPost: req.body.publishPost,
-			paragraphs: req.body.paragraphs
-			 
-		})
-		post.save((err, doc) => {
-			if(err) throw err;
-			return res.status(200).json({
-				status: 'success',
-				data: doc
-			})
-		})
-	});
+	
 })
 
 
 app.post('/api/post/updatePost', (req, res) => {
-    mongoose.connect(url, { useMongoClient: true, user: "dba", pass: "P@55word" }, function(err){
-        if(err) throw err;
-        Post.update(
-            {_id: req.body._id },
-			{ 
-				_id: req.body._id,
-				title : req.body.title, 
-				description: req.body.description, 
-				date: req.body.date,
-				asscField: req.body.asscField,
-				leadImage: req.body.leadImage,
-				leadText: req.body.leadText,
-				leadTextCont: req.body.leadTextCont,
-				publishPost: req.body.publishPost,
-				paragraphs: req.body.paragraphs
 
+	var token = req.body.token;
+  
+	// decode token
+	if (token) {
+  
+	  // verifies secret and checks exp
+	  jwt.verify(token, config.secret, function(err, decoded) {      
+		if (err) {
+		  return res.json({ success: false, message: 'Failed to authenticate token.' });    
+		} 
+		else {
+			// if everything is good, save to request for use in other routes
+			req.decoded = decoded;    
+			mongoose.connect(url, { useMongoClient: true, user: "dba", pass: "P@55word" }, function(err){
+				if(err) throw err;
+				Post.update(
+					{_id: req.body._id },
+					{ 
+						_id: req.body._id,
+						title : req.body.title, 
+						description: req.body.description, 
+						date: req.body.date,
+						asscField: req.body.asscField,
+						leadImage: req.body.leadImage,
+						leadText: req.body.leadText,
+						leadTextCont: req.body.leadTextCont,
+						publishPost: req.body.publishPost,
+						paragraphs: req.body.paragraphs
+		
+		
+					},
+					(err, doc) => {
+					if(err) throw err;
+					return res.status(200).json({
+						status: 'success',
+						data: doc
+					})
+				})
+			});
+		}
+	  });
+  
+	} else {
+  
+	  // if there is no token
+	  // return an error
+	  return res.status(403).send({ 
+		  success: false, 
+		  message: 'No token provided.' 
+	  });
+  
+	}
 
-			},
-            (err, doc) => {
-            if(err) throw err;
-            return res.status(200).json({
-                status: 'success',
-                data: doc
-            })
-        })
-    });
+   
 })
+
+
 
 app.post('/api/post/deletePost', (req, res) => {
-    mongoose.connect(url, { useMongoClient: true, user: "dba", pass: "P@55word"}, function(err){
-        if(err) throw err;
-        Post.findByIdAndRemove(req.body.id,
-            (err, doc) => {
-            if(err) throw err;
-            return res.status(200).json({
-                status: 'success',
-                data: doc
-            })
-        })
-    });
+
+
+	var token = req.body.token;
+  
+	// decode token
+	if (token) {
+  
+	  // verifies secret and checks exp
+	  jwt.verify(token, config.secret, function(err, decoded) {      
+		if (err) {
+		  return res.json({ success: false, message: 'Failed to authenticate token.' });    
+		} 
+		else {
+			// if everything is good, save to request for use in other routes
+			req.decoded = decoded;    
+			mongoose.connect(url, { useMongoClient: true, user: "dba", pass: "P@55word"}, function(err){
+				if(err) throw err;
+				Post.findByIdAndRemove(req.body._id,
+					(err, doc) => {
+					if(err) throw err;
+					return res.status(200).json({
+						status: 'success',
+						data: doc
+					})
+				})
+			});
+		}
+	  });
+  
+	} else {
+  
+	  // if there is no token
+	  // return an error
+	  return res.status(403).send({ 
+		  success: false, 
+		  message: 'No token provided.' 
+	  });
+  
+	}
+
+   
 })
+
+/*Upload Functionality*/
+
+var storage = multer.diskStorage({ //multers disk storage settings
+	destination: function (req, file, cb) {
+		cb(null, DIR);
+	},
+	filename: function (req, file, cb) {
+		var datetimestamp = Date.now();
+		//cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
+		cb(null,file.originalname);
+	}
+});
+
+var upload = multer({ //multer settings
+				storage: storage
+			}).single('file');
+
+/** API path that will upload the files */
+app.post('/upload', function(req, res) {
+	upload(req,res,function(err){
+		//console.log(req.file);
+		if(err){
+			 res.json({error_code:1,err_desc:err});
+			 return;
+		}
+		 res.json({error_code:0,err_desc:null});
+	});
+});
 
 app.listen(WEBSERVER_PORT, () => console.log('Blog server running on port : '+WEBSERVER_PORT))
