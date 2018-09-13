@@ -21,8 +21,6 @@ export class ShowPostService {
 		return this.http.post(this.restGateway+'/api/post/getAllFavPost',{})
 	}
 
-	deletePost(id){
-		return this.http.post(this.restGateway+'/api/post/deletePost',{id : id})
-	}
+	
 
 }

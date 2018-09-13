@@ -2,7 +2,7 @@ import { Component,OnInit,AfterViewInit} from '@angular/core';
 import { StandardBlogService } from './standardBlog.service';
 import { Post } from '../models/post.model';
 import { Router,ActivatedRoute} from '@angular/router';
-import { FileUploader } from 'ng2-file-upload';
+import { FileUploader, FileUploaderOptions } from 'ng2-file-upload';
 
 declare var jQuery:any;
 
@@ -32,15 +32,19 @@ export class CreateStandardBlogComponent implements OnInit {
     
 
     constructor(private standardBlogService: StandardBlogService, private route: ActivatedRoute, private router: Router){
-        // if(!localStorage.getItem('loggedInUser')){
-        //     alert("Access is denied");
-        //     this._allowAccess = false;
-        //     this.router.navigate(['/']);
-        // }
-        // else {
-        //   this._allowAccess = true;
-        //   this.route.params.subscribe( params => this.routerParams = params);
-        // }
+        if(!localStorage){
+          alert("Device not supported");
+          return;
+        }
+        if(!localStorage.getItem('loggedInUserToken')){
+            alert("Access is denied");
+            this._allowAccess = false;
+            this.router.navigate(['/']);
+        }
+        else {
+          this._allowAccess = true;
+          this.route.params.subscribe( params => this.routerParams = params);
+        }
 
         this._allowAccess = true;
         this.route.params.subscribe( params => this.routerParams = params);
@@ -66,6 +70,9 @@ export class CreateStandardBlogComponent implements OnInit {
 
   ngAfterViewInit(){
     this.preloader();
+    var uo: FileUploaderOptions = {};
+    uo.headers = [{ name: 'x-access-token', value : localStorage.getItem('loggedInUserToken') } ]
+    this.uploader.setOptions(uo);
   }
 
   preloader(){
@@ -91,7 +98,7 @@ private initStdPostObj(){
       "leadTextCont": "",
       "publishPost": "",
       "paragraphs": []
-    };
+     };
   }
 
 private getNewParagraphObj(){
@@ -140,31 +147,34 @@ private savePost(){
 }
 
 private logout(){
-  //localStorage.removeItem('loggedInUser');
+  localStorage.removeItem('loggedInUserToken');
   this.router.navigate(['/']);
 }
 
 private updateFilePathInObj(){
-  //Lead Image for Blog
-  this.postObj.leadImage =  this.fileUploadPath+this.uploader.queue[0].file.name;
-  //Paragraph Images
-  let i = 1;
-  for (let paragraph of this.paragraphs) {
-    paragraph.image =  this.fileUploadPath+this.uploader.queue[i].file.name;
-    i++;
-  } 
+  if (this.uploader.queue.length > 0){
+    //Lead Image for Blog
+    this.postObj.leadImage =  this.fileUploadPath+this.uploader.queue[0].file.name;
+    //Paragraph Images
+    let i = 1;
+    for (let paragraph of this.paragraphs) {
+        paragraph.image =  this.fileUploadPath+this.uploader.queue[i].file.name;
+        i++;
+    } 
+  }
+ 
 }
 
   createPostandUploadFiles(){
     this.updateFilePathInObj();
     this.createPost();
-    this.uploader.uploadAll();
+    if (this.uploader.queue.length > 0){
+      this.uploader.uploadAll();
+    }
   }
 
   modifyPostandUploadFiles(){
-    if (this.uploader.queue.length > 0){
-      this.updateFilePathInObj();
-    }
+    this.updateFilePathInObj();
     this.savePost();
     if (this.uploader.queue.length > 0){
       this.uploader.uploadAll();

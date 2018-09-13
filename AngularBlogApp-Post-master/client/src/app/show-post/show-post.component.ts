@@ -55,10 +55,6 @@ export class ShowPostComponent implements OnInit {
    jQuery("html").addClass('cl-loaded');
  }
  
-  setDelete(post: Post){
-    this.post_to_delete = post;
-    this.deletePost();
-  }
  
   unsetDelete(){
     this.post_to_delete = null;
@@ -83,12 +79,7 @@ export class ShowPostComponent implements OnInit {
     this.commonService.setPostToEdit(post);
   }
  
-  deletePost(){
-    this.showPostService.deletePost(this.post_to_delete._id).subscribe(res => {
-      this.getAllPost();
-      this.closeBtn.nativeElement.click();
-    })
-  }
+  
 
   onCardClick(post:Post){
     this.router.navigate(['/stdBlog',post._id]);

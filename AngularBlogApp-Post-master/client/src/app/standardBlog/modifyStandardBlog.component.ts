@@ -15,7 +15,7 @@ declare var jQuery:any;
 export class ModifyStandardBlogComponent implements OnInit {
  
   @ViewChild('closeBtn') closeBtn: ElementRef;
- 
+  public _allowAccess:boolean = false;
   public posts : any [];
   public post_to_delete;
   public searchText:string;
@@ -25,11 +25,23 @@ export class ModifyStandardBlogComponent implements OnInit {
   }
  
   ngOnInit(){
-    this.getAllPost();
- 
-    this.commonService.postAdded_Observable.subscribe(res => {
+    if(!localStorage){
+      alert("Device not supported");
+      return;
+    }
+    if(!localStorage.getItem('loggedInUserToken')){
+      alert("Access is denied");
+      this._allowAccess = false;
+      this.router.navigate(['/']);
+    }
+    else{
       this.getAllPost();
-    });
+      this.commonService.postAdded_Observable.subscribe(res => {
+        this.getAllPost();
+      });
+      this._allowAccess = true;
+    }
+   
   }
 
   ngAfterViewInit(){
@@ -69,6 +81,11 @@ export class ModifyStandardBlogComponent implements OnInit {
 
   onCardClick(post:Post){
     this.router.navigate(['/stdBlog',post._id]);
+  }
+
+  private logout(){
+    localStorage.removeItem('loggedInUserToken');
+    this.router.navigate(['/']);
   }
  
 }

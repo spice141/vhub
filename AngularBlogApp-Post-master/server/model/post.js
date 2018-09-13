@@ -4,13 +4,13 @@ const Schema = mongoose.Schema;
 // create a schema
 const postSchema = new Schema({
   title: { type: String, required: true },
-  description: { type: String, required: true },
-  date: { type: String, required: true },
-  asscField: { type: String, required: true },
-  leadImage: { type: String, required: true },
-  leadText: { type: String, required: true },
-  leadTextCont: { type: String, required: true },
-  publishPost: { type: String, required: true },
+  description: { type: String},
+  date: { type: String},
+  asscField: { type: String},
+  leadImage: { type: String},
+  leadText: { type: String},
+  leadTextCont: { type: String},
+  publishPost: { type: String},
   paragraphs : [{
     image : String,
     heading : String,

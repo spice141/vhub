@@ -67,44 +67,57 @@
         <h3 class="add-bottom">Create Standard Blog Post</h3>
         <form>
            <div>
-                <label>Title</label>
-                <input class="full-width" type="text" [(ngModel)] = "postObj.title" [ngModelOptions]="{standalone: true}">
+               <ng-container *ngIf = "postObj">
+                    <label>Title</label>
+                    <input class="full-width" type="text" [(ngModel)] = "postObj.title" [ngModelOptions]="{standalone: true}">
+               </ng-container>
+               
             </div>
-            <div>
+            <div>   
+                <ng-container *ngIf = "postObj">
                     <label>Description</label>
                     <input class="full-width" type="text" [(ngModel)] = "postObj.description" [ngModelOptions]="{standalone: true}">
+                </ng-container>
             </div>
             <div>
-                <label for="sampleRecipientInput">Blog Type</label>
-                <div class="cl-custom-select">
-                    <select class="full-width" id="sampleRecipientInput" [(ngModel)] = "postObj.asscField" [ngModelOptions]="{standalone: true}">
-                        <option value="Health">Health</option>
-                        <option value="Travel">Travel</option>
-                        <option value="Misc">Misc</option>
-                    </select>
-                </div>
+                <ng-container *ngIf = "postObj">
+                    <label for="sampleRecipientInput">Blog Type</label>
+                    <div class="cl-custom-select">
+                        <select class="full-width" id="sampleRecipientInput" [(ngModel)] = "postObj.asscField" [ngModelOptions]="{standalone: true}">
+                            <option value="Health">Health</option>
+                            <option value="Travel">Travel</option>
+                            <option value="Misc">Misc</option>
+                        </select>
+                    </div>
+                </ng-container>
             </div>
             <div>
-                <label for="sampleRecipientInput">Publish To Blog</label>
-                <div class="cl-custom-select">
-                    <select class="full-width" id="sampleRecipientInput" [(ngModel)] = "postObj.publishPost" [ngModelOptions]="{standalone: true}">
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
-                </div>
+                <ng-container *ngIf = "postObj">
+                    <label for="sampleRecipientInput">Publish To Blog</label>
+                    <div class="cl-custom-select">
+                        <select class="full-width" id="sampleRecipientInput" [(ngModel)] = "postObj.publishPost" [ngModelOptions]="{standalone: true}">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                </ng-container>
             </div>
             <div>
+                <ng-container *ngIf = "postObj">
                     <label>Lead Image</label>
                     <input class="full-width" type="text" [(ngModel)] = "postObj.leadImage" [ngModelOptions]="{standalone: true}">
+                </ng-container>
             </div>
             <div class="form-group">
                 <label for="single">Lead Image</label>
                 <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" />                                  
             </div> 
-            <label for="exampleMessage">Lead Text Content</label>
-            <textarea class="full-width" placeholder="Your Text"  [(ngModel)] = "postObj.leadText" [ngModelOptions]="{standalone: true}" id="exampleMessage"></textarea>
-            <label for="exampleMessage">Lead Text Content Continued</label>
-            <textarea class="full-width" placeholder="Your Text"  [(ngModel)] = "postObj.leadTextCont" [ngModelOptions]="{standalone: true}" id="exampleMessage"></textarea>
+            <ng-container *ngIf = "postObj">
+                    <label for="exampleMessage">Lead Text Content</label>
+                    <textarea class="full-width" placeholder="Your Text"  [(ngModel)] = "postObj.leadText" [ngModelOptions]="{standalone: true}" id="exampleMessage"></textarea>
+                    <label for="exampleMessage">Lead Text Content Continued</label>
+                    <textarea class="full-width" placeholder="Your Text"  [(ngModel)] = "postObj.leadTextCont" [ngModelOptions]="{standalone: true}" id="exampleMessage"></textarea>
+            </ng-container>
             <input *ngIf = "paragraphs.length == 0" class="btn--primary full-width"  type="button" value="Add More" (click) = "addButtonClick()">
             <div *ngFor = "let paragraph of paragraphs">
                     <h2> /* New Paragraph*/ </h2>

@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Post } from '../models/post.model';
+const httpOptions = {
+	headers: new HttpHeaders({
+	'Content-Type':  'application/json',
+	'x-access-token': localStorage.getItem('loggedInUserToken')
+   })
+};
 
 
 @Injectable()
@@ -13,6 +19,10 @@ export class StandardBlogService {
 	constructor(private http: HttpClient){
 		this.restGateway = this.restGatewayDev;
 	}
+
+	getAllPost(){
+		return this.http.post(this.restGateway+'/api/post/getAllPost',{})
+	}
 	
 	getPost(post_id){
 		return this.http.post(this.restGateway+'/api/post/getPost',{
@@ -21,19 +31,18 @@ export class StandardBlogService {
 	}
 
 	addPost(post: Post){
-		return this.http.post(this.restGateway+'/api/post/createPost',post)
+		return this.http.post(this.restGateway+'/api/post/createPost',post, httpOptions)
 	}
 
 	updatePost(post: Post){
-		return this.http.post(this.restGateway+'/api/post/updatePost', post)
+			
+		return this.http.post(this.restGateway+'/api/post/updatePost', post, httpOptions)
 	}
 
-	getAllPost(){
-		return this.http.post(this.restGateway+'/api/post/getAllPost',{})
-	}
-
+	
 	deletePost(id){
-		return this.http.post(this.restGateway+'/api/post/deletePost',{id : id})
+	
+		return this.http.post(this.restGateway+'/api/post/deletePost',{id : id}, httpOptions)
 	}
 
 }

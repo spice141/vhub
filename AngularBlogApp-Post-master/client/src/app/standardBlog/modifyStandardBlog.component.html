@@ -90,8 +90,9 @@
 </section>
 
 <section class="s-content">
-   
-    <div class="row masonry-wrap">
+    <br>
+    <button (click)="logout()" type="button" class="btn btn-link" style="float:right;">Logout</button>
+    <div  *ngIf = "_allowAccess" class="row masonry-wrap">
         <div class="masonry">
             <pre class="prettyprint prettyprinted" style="">
                 <input class="full-width" type="text" placeholder="Search Text Goes Here..." [(ngModel)] = "searchText">
